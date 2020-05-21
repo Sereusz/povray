@@ -1121,6 +1121,11 @@ void Parser::Parse_Pattern (TPATTERN *New, int TPat_Type)
 			EXIT
 		END_CASE
 
+		CASE(POLAR_TOKEN)
+			New->Type = POLAR_PATTERN;
+			EXIT
+		END_CASE
+
 		CASE (SPIRAL1_TOKEN)
 			New->Type = SPIRAL1_PATTERN;
 			New->Vals.Arms = (short)Parse_Float ();
@@ -4965,6 +4970,11 @@ void Parser::Parse_PatternFunction(TPATTERN *New)
 
 		CASE (ONION_TOKEN)
 			New->Type = ONION_PATTERN;
+			EXIT
+		END_CASE
+
+		CASE(POLAR_TOKEN)
+			New->Type = POLAR_PATTERN;
 			EXIT
 		END_CASE
 

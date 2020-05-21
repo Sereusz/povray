@@ -101,8 +101,7 @@ bool povray_terminated();
 // We also recommend including an email or website address, then remove the #error directive to proceed with the build.
 #define DISTRIBUTION_MESSAGE_1 "This is an unofficial version compiled by:"
 #ifndef DISTRIBUTION_MESSAGE_2
-#error Please complete the following DISTRIBUTION_MESSAGE_2 definition
-#define DISTRIBUTION_MESSAGE_2 " FILL IN NAME HERE........................."
+#define DISTRIBUTION_MESSAGE_2 " Seweryn Kudaj"
 #endif
 #define DISTRIBUTION_MESSAGE_3 " The POV-Ray Team is not responsible for supporting this version.\n"
 

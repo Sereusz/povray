@@ -133,6 +133,7 @@ static DBL tiling_pattern (const VECTOR EPoint, const TPATTERN *TPat);
 static DBL waves_pattern (const VECTOR EPoint, const TPATTERN *TPat, const TraceThreadData *Thread);
 static DBL wood_pattern (const VECTOR EPoint, const TPATTERN *TPat);
 static DBL wrinkles_pattern (const VECTOR EPoint, int noise_generator);
+static DBL polar_pattern(const VECTOR EPoint);
 
 static DBL fractal_exterior_color(const TPATTERN *TPat, int iters, DBL a, DBL b);
 static DBL fractal_interior_color(const TPATTERN *TPat, int iters, DBL a, DBL b, DBL mindist2);
@@ -274,6 +275,7 @@ DBL Evaluate_TPat (const TPATTERN *TPat, const VECTOR EPoint, const Intersection
 		case TILING_PATTERN:      value = tiling_pattern     (EPoint, TPat);                            break;
 		case PIGMENT_PATTERN:     value = pigment_pattern    (EPoint, TPat, Isection, ray, Thread);     break;
 		case OBJECT_PATTERN:      value = object_pattern     (EPoint, TPat, Thread);                    break;
+		case POLAR_PATTERN:		  value = polar_pattern		 (EPoint);									break;
 
 		default: throw POV_EXCEPTION_STRING("Problem in Evaluate_TPat.");
 	}
@@ -7578,6 +7580,50 @@ static DBL planar_pattern (const VECTOR EPoint)
 	return value;
 }
 
+/*****************************************************************************
+*
+* FUNCTION
+*
+*   polar_pattern
+*
+* INPUT
+*
+*   EPoint -- The point in 3d space at which the pattern
+*   is evaluated.
+*
+* OUTPUT
+*
+* RETURNS
+*
+*   DBL value in the range 0.0 to 1.0
+*
+* AUTHOR
+*
+*   Seweryn Kudaj
+*
+*
+* CHANGES
+*
+*   May 2020 : Creation.
+*
+******************************************************************************/
+
+static DBL polar_pattern(const VECTOR EPoint)
+{
+	VECTOR EPointPrim;
+	DBL dotProduct, lenE, lenEPrim, angle;
+	EPointPrim[X] = EPoint[X];
+	EPointPrim[Y] = 0;
+	EPointPrim[Z] = EPoint[Z];
+	VDot(dotProduct, EPoint, EPointPrim);
+	VLength(lenE, EPoint);
+	VLength(lenEPrim, EPointPrim);
+	angle = acos(dotProduct / (lenE * lenEPrim));
+	if (EPoint[Y] > 0)
+		return 0.5 + 2*angle/M_PI*0.5;
+	else
+		return 0.5 - 2*angle/M_PI*0.5;
+}
 
 /*****************************************************************************
 *
@@ -8895,3 +8941,5 @@ void InitializePatternGenerators(void)
 }
 
 }
+
+

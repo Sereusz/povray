@@ -414,6 +414,7 @@ const RESERVED_WORD Reserved_Words[LAST_TOKEN] = {
 	{PLUS_TOKEN, "+"},
 	{PNG_TOKEN, "png"},
 	{POINT_AT_TOKEN, "point_at"},
+	{POLAR_TOKEN, "polar"},
 	{POLYGON_TOKEN, "polygon"},
 	{POLY_TOKEN, "poly"},
 	{POLYNOM_TOKEN, "polynomial"},
